@@ -1,0 +1,8 @@
+name: MeetingGrabber
+author: Jason Cramer
+version: 1.0
+main: com.jasomo.MeetingGrabber
+description: Grabs the weekly meetings
+commands:
+  meeting:
+    description: Grabs current meeting time
