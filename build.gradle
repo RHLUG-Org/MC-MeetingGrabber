@@ -1,0 +1,40 @@
+buildscript {
+  ext.bukkit_version = "1.9.2-R0.1-SNAPSHOT"
+}
+
+plugins {
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+    id 'java'
+}
+
+repositories {
+  mavenCentral()
+  maven {
+    url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+  }
+}
+
+version = "0.1"
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+configurations {
+  shade
+  compile.extendsFrom shade
+}
+
+// Use the shade configuration to include the dependency's class files in your final JAR
+
+dependencies {
+  compile "org.bukkit:bukkit:$bukkit_version"
+  implementation "com.google.code.gson:gson:2.8.6"
+  // shade "org.somewebsite:some-dependency:version"
+}
+
+jar {
+  configurations.shade.each { dep ->
+    from(project.zipTree(dep)) {
+      exclude 'META-INF', 'META-INF/**'
+    }
+  }
+}
